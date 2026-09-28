@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<System>
+  <P Name="Location">[223, 338, 826, 833]</P>
+  <P Name="SIDHighWatermark">45</P>
+  <Block BlockType="Inport" Name="x" SID="40::29">
+    <P Name="Position">[20, 101, 40, 119]</P>
+    <P Name="ZOrder">20</P>
+  </Block>
+  <Block BlockType="Demux" Name=" Demux " SID="40::26">
+    <PortCounts in="1" out="1"/>
+    <P Name="Position">[270, 230, 320, 270]</P>
+    <P Name="ZOrder">17</P>
+    <P Name="Outputs">1</P>
+  </Block>
+  <Block BlockType="S-Function" Name=" SFunction " SID="40::25">
+    <P Name="Tag">Stateflow S-Function 2</P>
+    <PortCounts in="1" out="2"/>
+    <P Name="Position">[180, 120, 230, 180]</P>
+    <P Name="ZOrder">16</P>
+    <P Name="FunctionName">sf_sfun</P>
+    <P Name="Parameters">K,umax,umin</P>
+    <P Name="PortCounts">[1 2]</P>
+    <P Name="SFunctionDeploymentMode">off</P>
+    <P Name="EnableBusSupport">on</P>
+    <P Name="SFcnIsStateOwnerBlock">off</P>
+    <PortProperties>
+      <Port Type="out" Index="2">
+        <P Name="Name">u</P>
+      </Port>
+    </PortProperties>
+  </Block>
+  <Block BlockType="Terminator" Name=" Terminator " SID="40::27">
+    <P Name="Position">[460, 241, 480, 259]</P>
+    <P Name="ZOrder">18</P>
+  </Block>
+  <Block BlockType="Outport" Name="u" SID="40::30">
+    <P Name="Position">[460, 101, 480, 119]</P>
+    <P Name="ZOrder">21</P>
+  </Block>
+  <Line>
+    <P Name="ZOrder">217</P>
+    <P Name="Src">40::29#out:1</P>
+    <P Name="Points">[65, 0; 0, 40]</P>
+    <P Name="Dst">40::25#in:1</P>
+  </Line>
+  <Line>
+    <P Name="Name">u</P>
+    <P Name="ZOrder">218</P>
+    <P Name="Labels">[0, 0]</P>
+    <P Name="Src">40::25#out:2</P>
+    <P Name="Points">[120, 0; 0, -55]</P>
+    <P Name="Dst">40::30#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">219</P>
+    <P Name="Src">40::26#out:1</P>
+    <P Name="Dst">40::27#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">220</P>
+    <P Name="Src">40::25#out:1</P>
+    <P Name="Points">[15, 0; 0, 115]</P>
+    <P Name="Dst">40::26#in:1</P>
+  </Line>
+</System>

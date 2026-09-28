@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<System>
+  <P Name="Location">[-812, -1023, 769, -91]</P>
+  <P Name="Open">on</P>
+  <P Name="ZoomFactor">128</P>
+  <P Name="ReportName">simulink-default.rpt</P>
+  <P Name="SIDHighWatermark">73</P>
+  <Block BlockType="SubSystem" Name="Actuated Pendulum" SID="46">
+    <PortCounts in="1" out="2"/>
+    <P Name="Position">[-25, 207, 160, 278]</P>
+    <P Name="ZOrder">53</P>
+    <P Name="ContentPreviewEnabled">on</P>
+    <Mask>
+      <Display RunInitForIconRedraw="off"/>
+      <MaskParameter Name="m_p" Type="edit">
+        <Prompt>Pendulum mass [kg]</Prompt>
+        <Value>p.m</Value>
+      </MaskParameter>
+      <MaskParameter Name="l_p" Type="edit">
+        <Prompt>Pendulum length [m]</Prompt>
+        <Value>p.l</Value>
+      </MaskParameter>
+      <MaskParameter Name="b_p" Type="edit">
+        <Prompt>Damping [N m s/rad]</Prompt>
+        <Value>p.b</Value>
+      </MaskParameter>
+      <MaskParameter Name="theta0" Type="edit">
+        <Prompt>Initial angle [deg]</Prompt>
+        <Value>p.theta0</Value>
+      </MaskParameter>
+      <MaskParameter Name="thetadot0" Type="edit">
+        <Prompt>Initial angular velocity [rad/s]</Prompt>
+        <Value>p.omega0</Value>
+      </MaskParameter>
+      <DialogControl Type="Group" Name="DescGroupVar">
+        <Prompt>%&lt;MaskType&gt;</Prompt>
+        <DialogControl Type="Text" Name="DescTextVar">
+          <Prompt>%&lt;MaskDescription&gt;</Prompt>
+        </DialogControl>
+      </DialogControl>
+      <DialogControl Type="Group" Name="ParameterGroupVar">
+        <Prompt>Parameters</Prompt>
+        <DialogControl Type="Edit" Name="m_p">
+          <Prompt>Pendulum mass [kg]</Prompt>
+          <ControlOptions PromptLocation="left"/>
+        </DialogControl>
+        <DialogControl Type="Edit" Name="l_p">
+          <Prompt>Pendulum length [m]</Prompt>
+          <ControlOptions PromptLocation="left"/>
+        </DialogControl>
+        <DialogControl Type="Edit" Name="b_p">
+          <Prompt>Damping [N m s/rad]</Prompt>
+          <ControlOptions PromptLocation="left"/>
+        </DialogControl>
+        <DialogControl Type="Edit" Name="theta0">
+          <Prompt>Initial angle [deg]</Prompt>
+          <ControlOptions PromptLocation="left"/>
+        </DialogControl>
+        <DialogControl Type="Edit" Name="thetadot0">
+          <Prompt>Initial angular velocity [rad/s]</Prompt>
+          <ControlOptions PromptLocation="left"/>
+        </DialogControl>
+      </DialogControl>
+    </Mask>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="PropagatedSignals">theta</P>
+      </Port>
+      <Port Type="out" Index="2">
+        <P Name="PropagatedSignals">thetadot</P>
+      </Port>
+    </PortProperties>
+    <System Ref="system_46"/>
+  </Block>
+  <Block BlockType="Demux" Name="Demux" SID="54">
+    <PortCounts in="1" out="2"/>
+    <P Name="Position">[385, 231, 390, 269]</P>
+    <P Name="ZOrder">58</P>
+    <P Name="Outputs">2</P>
+  </Block>
+  <Block BlockType="Demux" Name="Demux1" SID="61">
+    <PortCounts in="1" out="2"/>
+    <P Name="Position">[-5, 466, 0, 504]</P>
+    <P Name="ZOrder">65</P>
+    <P Name="Outputs">2</P>
+  </Block>
+  <Block BlockType="SubSystem" Name="MATLAB Function" SID="40">
+    <PortCounts in="1" out="1"/>
+    <P Name="Position">[-445, 232, -305, 308]</P>
+    <P Name="ZOrder">50</P>
+    <P Name="ErrorFcn">Stateflow.Translate.translate</P>
+    <P Name="PermitHierarchicalResolution">ExplicitOnly</P>
+    <P Name="TreatAsAtomicUnit">on</P>
+    <P Name="SFBlockType">MATLAB Function</P>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="PropagatedSignals">u</P>
+      </Port>
+    </PortProperties>
+    <System Ref="system_40"/>
+  </Block>
+  <Block BlockType="Mux" Name="Mux" SID="41">
+    <PortCounts in="2" out="1"/>
+    <P Name="Position">[335, 221, 340, 274]</P>
+    <P Name="ZOrder">51</P>
+    <P Name="Inputs">2</P>
+    <P Name="DisplayOption">bar</P>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="Name">x</P>
+      </Port>
+    </PortProperties>
+  </Block>
+  <Block BlockType="ToWorkspace" Name="To Workspace" SID="50">
+    <PortCounts in="1"/>
+    <P Name="Position">[465, 130, 555, 160]</P>
+    <P Name="ZOrder">54</P>
+    <P Name="VariableName">theta_sim</P>
+    <P Name="MaxDataPoints">inf</P>
+    <P Name="SaveFormat">Timeseries</P>
+    <P Name="FixptAsFi">on</P>
+    <P Name="SampleTime">-1</P>
+  </Block>
+  <Block BlockType="ToWorkspace" Name="To Workspace1" SID="51">
+    <PortCounts in="1"/>
+    <P Name="Position">[465, 280, 555, 310]</P>
+    <P Name="ZOrder">55</P>
+    <P Name="VariableName">omega_sim</P>
+    <P Name="MaxDataPoints">inf</P>
+    <P Name="SaveFormat">Timeseries</P>
+    <P Name="FixptAsFi">on</P>
+    <P Name="SampleTime">-1</P>
+  </Block>
+  <Block BlockType="ToWorkspace" Name="To Workspace2" SID="52">
+    <PortCounts in="1"/>
+    <P Name="Position">[-25, 355, 65, 385]</P>
+    <P Name="ZOrder">56</P>
+    <P Name="VariableName">u_sim</P>
+    <P Name="MaxDataPoints">inf</P>
+    <P Name="SaveFormat">Timeseries</P>
+    <P Name="FixptAsFi">on</P>
+    <P Name="SampleTime">-1</P>
+  </Block>
+  <Block BlockType="ToWorkspace" Name="To Workspace3" SID="59">
+    <PortCounts in="1"/>
+    <P Name="Position">[70, 440, 160, 470]</P>
+    <P Name="ZOrder">63</P>
+    <P Name="VariableName">theta_hat</P>
+    <P Name="MaxDataPoints">inf</P>
+    <P Name="SaveFormat">Timeseries</P>
+    <P Name="FixptAsFi">on</P>
+    <P Name="SampleTime">-1</P>
+  </Block>
+  <Block BlockType="ToWorkspace" Name="To Workspace4" SID="60">
+    <PortCounts in="1"/>
+    <P Name="Position">[70, 500, 160, 530]</P>
+    <P Name="ZOrder">64</P>
+    <P Name="VariableName">omega_hat</P>
+    <P Name="MaxDataPoints">inf</P>
+    <P Name="SaveFormat">Timeseries</P>
+    <P Name="FixptAsFi">on</P>
+    <P Name="SampleTime">-1</P>
+  </Block>
+  <Block BlockType="UniformRandomNumber" Name="Uniform Random&#xA;Number" SID="72">
+    <P Name="Position">[-255, 129, -225, 161]</P>
+    <P Name="ZOrder">76</P>
+    <P Name="Minimum">-0.05</P>
+    <P Name="Maximum">0.05</P>
+    <P Name="SampleTime">Ts</P>
+  </Block>
+  <Block BlockType="UnitDelay" Name="Unit Delay" SID="55">
+    <P Name="Position">[-340, 413, -305, 447]</P>
+    <P Name="ZOrder">59</P>
+    <P Name="BlockMirror">on</P>
+    <P Name="InitialCondition">xhat0</P>
+    <P Name="SampleTime">Ts</P>
+    <P Name="HasFrameUpgradeWarning">on</P>
+  </Block>
+  <Block BlockType="ZeroOrderHold" Name="Zero-Order&#xA;Hold1" SID="64">
+    <P Name="Position">[205, 185, 240, 215]</P>
+    <P Name="ZOrder">68</P>
+    <P Name="SampleTime">Ts</P>
+  </Block>
+  <Block BlockType="ZeroOrderHold" Name="Zero-Order&#xA;Hold2" SID="58">
+    <P Name="Position">[205, 280, 240, 310]</P>
+    <P Name="ZOrder">62</P>
+    <P Name="SampleTime">Ts</P>
+  </Block>
+  <Block BlockType="ZeroOrderHold" Name="Zero-Order&#xA;Hold3" SID="66">
+    <P Name="Position">[-255, 255, -220, 285]</P>
+    <P Name="ZOrder">70</P>
+    <P Name="SampleTime">Ts</P>
+  </Block>
+  <Block BlockType="SubSystem" Name="observer" SID="53">
+    <PortCounts in="3" out="1"/>
+    <P Name="Position">[-230, 392, -115, 468]</P>
+    <P Name="ZOrder">57</P>
+    <P Name="BlockMirror">on</P>
+    <P Name="ErrorFcn">Stateflow.Translate.translate</P>
+    <P Name="PermitHierarchicalResolution">ExplicitOnly</P>
+    <P Name="TreatAsAtomicUnit">on</P>
+    <P Name="SFBlockType">MATLAB Function</P>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="PropagatedSignals">xhatnext</P>
+      </Port>
+    </PortProperties>
+    <System Ref="system_53"/>
+  </Block>
+  <Line>
+    <P Name="Name">x</P>
+    <P Name="ZOrder">65</P>
+    <P Name="Labels">[0, 0]</P>
+    <P Name="Src">41#out:1</P>
+    <P Name="Dst">54#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">67</P>
+    <P Name="Src">54#out:1</P>
+    <P Name="Points">[32, 0; 0, -95]</P>
+    <P Name="Dst">50#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">68</P>
+    <P Name="Src">54#out:2</P>
+    <P Name="Points">[32, 0; 0, 35]</P>
+    <P Name="Dst">51#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">75</P>
+    <P Name="Src">53#out:1</P>
+    <P Name="Dst">55#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">76</P>
+    <P Name="Src">55#out:1</P>
+    <P Name="Points">[-124, 0]</P>
+    <Branch>
+      <P Name="ZOrder">133</P>
+      <P Name="Points">[0, -160]</P>
+      <P Name="Dst">40#in:1</P>
+    </Branch>
+    <Branch>
+      <P Name="ZOrder">132</P>
+      <P Name="Points">[0, 105; 378, 0; 0, -50]</P>
+      <Branch>
+        <P Name="ZOrder">103</P>
+        <P Name="Dst">61#in:1</P>
+      </Branch>
+      <Branch>
+        <P Name="ZOrder">102</P>
+        <P Name="Points">[0, -30]</P>
+        <P Name="Dst">53#in:3</P>
+      </Branch>
+    </Branch>
+  </Line>
+  <Line>
+    <P Name="ZOrder">49</P>
+    <P Name="Src">40#out:1</P>
+    <P Name="Dst">66#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">116</P>
+    <P Name="Src">46#out:1</P>
+    <P Name="Points">[15, 0; 0, -25]</P>
+    <P Name="Dst">64#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">91</P>
+    <P Name="Src">46#out:2</P>
+    <P Name="Points">[18, 0; 0, 35]</P>
+    <P Name="Dst">58#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">92</P>
+    <P Name="Src">58#out:1</P>
+    <P Name="Points">[9, 0; 0, -35]</P>
+    <P Name="Dst">41#in:2</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">98</P>
+    <P Name="Src">61#out:1</P>
+    <P Name="Points">[30, 0; 0, -20]</P>
+    <P Name="Dst">59#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">99</P>
+    <P Name="Src">61#out:2</P>
+    <P Name="Points">[30, 0; 0, 20]</P>
+    <P Name="Dst">60#in:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">121</P>
+    <P Name="Src">64#out:1</P>
+    <P Name="Points">[22, 0; 0, 35]</P>
+    <P Name="Dst">41#in:1</P>
+  </Line>
+</System>

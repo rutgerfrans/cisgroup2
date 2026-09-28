@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<System>
+  <P Name="Location">[-776, -991, 527, -188]</P>
+  <P Name="ZoomFactor">103</P>
+  <Block BlockType="Inport" Name="input torque" SID="47">
+    <P Name="Position">[40, 348, 70, 362]</P>
+    <P Name="ZOrder">49</P>
+  </Block>
+  <Block BlockType="Reference" Name="Mechanism&#xA;Configuration" SID="21">
+    <PortCounts rconn="1"/>
+    <P Name="Position">[20, 185, 60, 225]</P>
+    <P Name="ZOrder">39</P>
+    <P Name="HideAutomaticName">off</P>
+    <P Name="LibraryVersion">23.21</P>
+    <P Name="SourceBlock">sm_lib/Utilities/Mechanism
+Configuration</P>
+    <P Name="SourceType">Mechanism
+Configuration</P>
+    <InstanceData>
+      <P Name="LogSimulationData">off</P>
+      <P Name="UniformGravity">Constant</P>
+      <P Name="GravityVector">[0 -9.81 0]</P>
+      <P Name="GravityVectorUnits">m/s^2</P>
+      <P Name="GravityVector_conf">compiletime</P>
+      <P Name="LinearizationDelta">0.001</P>
+      <P Name="JointModeTransitionNonlinearIterations">2</P>
+    </InstanceData>
+  </Block>
+  <Block BlockType="Reference" Name="PS-Simulink&#xA;Converter" SID="37">
+    <PortCounts out="1" lconn="1"/>
+    <P Name="Position">[315, 167, 330, 183]</P>
+    <P Name="ZOrder">47</P>
+    <P Name="LibraryVersion">7.0</P>
+    <P Name="SourceBlock">nesl_utility/PS-Simulink
+Converter</P>
+    <P Name="SourceType">PS-Simulink
+Converter</P>
+    <InstanceData>
+      <P Name="RTWMemSecFuncInitTerm">Inherit from model</P>
+      <P Name="RTWMemSecFuncExecute">Inherit from model</P>
+      <P Name="RTWMemSecDataConstants">Inherit from model</P>
+      <P Name="RTWMemSecDataInternal">Inherit from model</P>
+      <P Name="RTWMemSecDataParameters">Inherit from model</P>
+      <P Name="ContentPreviewEnabled">on</P>
+      <P Name="PhysicalDomain">network_engine_domain</P>
+      <P Name="SubClassName">ps_output</P>
+      <P Name="LeftPortType">input</P>
+      <P Name="RightPortType">output</P>
+      <P Name="PseudoPeriodic">off</P>
+      <P Name="Frequencies">[]</P>
+      <P Name="VectorFormat">inherit</P>
+      <P Name="Unit">inherit</P>
+      <P Name="AffineConversion">off</P>
+    </InstanceData>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="Name">theta</P>
+      </Port>
+    </PortProperties>
+  </Block>
+  <Block BlockType="Reference" Name="PS-Simulink&#xA;Converter1" SID="38">
+    <PortCounts out="1" lconn="1"/>
+    <P Name="Position">[315, 237, 330, 253]</P>
+    <P Name="ZOrder">48</P>
+    <P Name="LibraryVersion">7.0</P>
+    <P Name="SourceBlock">nesl_utility/PS-Simulink
+Converter</P>
+    <P Name="SourceType">PS-Simulink
+Converter</P>
+    <InstanceData>
+      <P Name="RTWMemSecFuncInitTerm">Inherit from model</P>
+      <P Name="RTWMemSecFuncExecute">Inherit from model</P>
+      <P Name="RTWMemSecDataConstants">Inherit from model</P>
+      <P Name="RTWMemSecDataInternal">Inherit from model</P>
+      <P Name="RTWMemSecDataParameters">Inherit from model</P>
+      <P Name="ContentPreviewEnabled">on</P>
+      <P Name="PhysicalDomain">network_engine_domain</P>
+      <P Name="SubClassName">ps_output</P>
+      <P Name="LeftPortType">input</P>
+      <P Name="RightPortType">output</P>
+      <P Name="PseudoPeriodic">off</P>
+      <P Name="Frequencies">[]</P>
+      <P Name="VectorFormat">inherit</P>
+      <P Name="Unit">inherit</P>
+      <P Name="AffineConversion">off</P>
+    </InstanceData>
+    <PortProperties>
+      <Port Type="out" Index="1">
+        <P Name="Name">thetadot</P>
+      </Port>
+    </PortProperties>
+  </Block>
+  <Block BlockType="Reference" Name="Revolute Joint" SID="33">
+    <PortCounts lconn="2" rconn="3"/>
+    <P Name="Position">[200, 105, 240, 145]</P>
+    <P Name="ZOrder">44</P>
+    <P Name="LibraryVersion">23.21</P>
+    <P Name="SourceBlock">sm_lib/Joints/Revolute Joint</P>
+    <P Name="SourceType">Revolute Joint</P>
+    <InstanceData>
+      <P Name="LogSimulationData">off</P>
+      <P Name="JointMode">Normal</P>
+      <P Name="SenseConstraintForce">off</P>
+      <P Name="SenseConstraintForceX">off</P>
+      <P Name="SenseConstraintForceY">off</P>
+      <P Name="SenseConstraintForceZ">off</P>
+      <P Name="SenseConstraintTorque">off</P>
+      <P Name="SenseConstraintTorqueX">off</P>
+      <P Name="SenseConstraintTorqueY">off</P>
+      <P Name="SenseConstraintTorqueZ">off</P>
+      <P Name="SenseTotalForce">off</P>
+      <P Name="SenseTotalForceX">off</P>
+      <P Name="SenseTotalForceY">off</P>
+      <P Name="SenseTotalForceZ">off</P>
+      <P Name="SenseTotalTorque">off</P>
+      <P Name="SenseTotalTorqueX">off</P>
+      <P Name="SenseTotalTorqueY">off</P>
+      <P Name="SenseTotalTorqueZ">off</P>
+      <P Name="CompositeWrenchDir">FollowerOnBase</P>
+      <P Name="CompositeWrenchFrame">BaseFrame</P>
+      <P Name="EquilibriumPosition">0</P>
+      <P Name="EquilibriumPositionUnits">deg</P>
+      <P Name="EquilibriumPosition_conf">compiletime</P>
+      <P Name="SpringStiffness">0</P>
+      <P Name="SpringStiffnessUnits">N*m/deg</P>
+      <P Name="SpringStiffness_conf">compiletime</P>
+      <P Name="DampingCoefficient">b_p</P>
+      <P Name="DampingCoefficientUnits">N*m*s/rad</P>
+      <P Name="DampingCoefficient_conf">compiletime</P>
+      <P Name="TorqueActuationMode">InputTorque</P>
+      <P Name="MotionActuationMode">ComputedMotion</P>
+      <P Name="SensePosition">on</P>
+      <P Name="SenseVelocity">on</P>
+      <P Name="SenseAcceleration">off</P>
+      <P Name="SenseTorqueForce">off</P>
+      <P Name="SenseLowerLimitTorqueForce">off</P>
+      <P Name="SenseUpperLimitTorqueForce">off</P>
+      <P Name="LowerLimitSpecify">off</P>
+      <P Name="LowerLimitBound">-90</P>
+      <P Name="LowerLimitBoundUnits">deg</P>
+      <P Name="LowerLimitBound_conf">compiletime</P>
+      <P Name="LowerLimitStiffness">1e4</P>
+      <P Name="LowerLimitStiffnessUnits">N*m/deg</P>
+      <P Name="LowerLimitStiffness_conf">compiletime</P>
+      <P Name="LowerLimitDamping">10</P>
+      <P Name="LowerLimitDampingUnits">N*m/(deg/s)</P>
+      <P Name="LowerLimitDamping_conf">compiletime</P>
+      <P Name="LowerLimitTransitionRegionWidth">0.1</P>
+      <P Name="LowerLimitTransitionRegionWidthUnits">deg</P>
+      <P Name="LowerLimitTransitionRegionWidth_conf">compiletime</P>
+      <P Name="UpperLimitSpecify">off</P>
+      <P Name="UpperLimitBound">90</P>
+      <P Name="UpperLimitBoundUnits">deg</P>
+      <P Name="UpperLimitBound_conf">compiletime</P>
+      <P Name="UpperLimitStiffness">1e4</P>
+      <P Name="UpperLimitStiffnessUnits">N*m/deg</P>
+      <P Name="UpperLimitStiffness_conf">compiletime</P>
+      <P Name="UpperLimitDamping">10</P>
+      <P Name="UpperLimitDampingUnits">N*m/(deg/s)</P>
+      <P Name="UpperLimitDamping_conf">compiletime</P>
+      <P Name="UpperLimitTransitionRegionWidth">0.1</P>
+      <P Name="UpperLimitTransitionRegionWidthUnits">deg</P>
+      <P Name="UpperLimitTransitionRegionWidth_conf">compiletime</P>
+      <P Name="PositionTargetSpecify">on</P>
+      <P Name="PositionTargetPriority">High</P>
+      <P Name="PositionTargetValue">theta0</P>
+      <P Name="PositionTargetValueUnits">deg</P>
+      <P Name="PositionTargetValue_conf">compiletime</P>
+      <P Name="VelocityTargetSpecify">on</P>
+      <P Name="VelocityTargetPriority">High</P>
+      <P Name="VelocityTargetValue">thetadot0</P>
+      <P Name="VelocityTargetValueUnits">deg/s</P>
+      <P Name="VelocityTargetValue_conf">compiletime</P>
+    </InstanceData>
+  </Block>
+  <Block BlockType="SubSystem" Name="Simple Link" SID="30">
+    <PortCounts lconn="1"/>
+    <P Name="Position">[380, 95, 520, 155]</P>
+    <P Name="ZOrder">43</P>
+    <P Name="ContentPreviewEnabled">on</P>
+    <Mask>
+      <Display RunInitForIconRedraw="off"/>
+      <MaskParameter Name="L" Type="edit">
+        <Prompt>Length (m)</Prompt>
+        <Value>l_p</Value>
+      </MaskParameter>
+      <MaskParameter Name="W" Type="edit">
+        <Prompt>Width (m)</Prompt>
+        <Value>0.04</Value>
+      </MaskParameter>
+      <MaskParameter Name="H" Type="edit">
+        <Prompt>Thickness (m)</Prompt>
+        <Value>0.04</Value>
+      </MaskParameter>
+      <MaskParameter Name="rho" Type="edit">
+        <Prompt>mass (kg)</Prompt>
+        <Value>m_p</Value>
+      </MaskParameter>
+      <MaskParameter Name="rgb" Type="edit">
+        <Prompt>Color [R G B]</Prompt>
+        <Value>[0.25 0.40 0.70]</Value>
+      </MaskParameter>
+      <DialogControl Type="Group" Name="DescGroupVar">
+        <Prompt>%&lt;MaskType&gt;</Prompt>
+        <DialogControl Type="Text" Name="DescTextVar">
+          <Prompt>%&lt;MaskDescription&gt;</Prompt>
+        </DialogControl>
+      </DialogControl>
+      <DialogControl Type="Group" Name="ParameterGroupVar">
+        <Prompt>Parameters</Prompt>
+        <DialogControl Type="Edit" Name="L">
+          <Prompt>Length (m)</Prompt>
+          <ControlOptions PromptLocation="left"/>
+        </DialogControl>
+        <DialogControl Type="Edit" Name="W">
+          <Prompt>Width (m)</Prompt>
+          <ControlOptions PromptLocation="left"/>
+        </DialogControl>
+        <DialogControl Type="Edit" Name="H">
+          <Prompt>Thickness (m)</Prompt>
+          <ControlOptions PromptLocation="left"/>
+        </DialogControl>
+        <DialogControl Type="Edit" Name="rho">
+          <Prompt>mass (kg)</Prompt>
+          <ControlOptions PromptLocation="left"/>
+        </DialogControl>
+        <DialogControl Type="Edit" Name="rgb">
+          <Prompt>Color [R G B]</Prompt>
+          <ControlOptions PromptLocation="left"/>
+        </DialogControl>
+      </DialogControl>
+    </Mask>
+    <System Ref="system_30"/>
+  </Block>
+  <Block BlockType="Reference" Name="Simulink-PS&#xA;Converter" SID="36">
+    <PortCounts in="1" rconn="1"/>
+    <P Name="Position">[155, 292, 170, 308]</P>
+    <P Name="ZOrder">46</P>
+    <P Name="LibraryVersion">7.0</P>
+    <P Name="SourceBlock">nesl_utility/Simulink-PS
+Converter</P>
+    <P Name="SourceType">Simulink-PS
+Converter</P>
+    <InstanceData>
+      <P Name="RTWMemSecFuncInitTerm">Inherit from model</P>
+      <P Name="RTWMemSecFuncExecute">Inherit from model</P>
+      <P Name="RTWMemSecDataConstants">Inherit from model</P>
+      <P Name="RTWMemSecDataInternal">Inherit from model</P>
+      <P Name="RTWMemSecDataParameters">Inherit from model</P>
+      <P Name="ContentPreviewEnabled">on</P>
+      <P Name="PhysicalDomain">network_engine_domain</P>
+      <P Name="SubClassName">ps_input</P>
+      <P Name="LeftPortType">input</P>
+      <P Name="RightPortType">output</P>
+      <P Name="PseudoPeriodic">off</P>
+      <P Name="Frequencies">[]</P>
+      <P Name="NoiseDistribution">none</P>
+      <P Name="NoiseParameters">[]</P>
+      <P Name="Unit">1</P>
+      <P Name="AffineConversion">off</P>
+      <P Name="FilteringAndDerivatives">provide</P>
+      <P Name="SimscapeFilterOrder">1</P>
+      <P Name="InputFilterTimeConstant">0.001</P>
+      <P Name="UdotUserProvided">0</P>
+    </InstanceData>
+  </Block>
+  <Block BlockType="Reference" Name="Solver&#xA;Configuration" SID="24">
+    <PortCounts rconn="1"/>
+    <P Name="Position">[20, 24, 60, 56]</P>
+    <P Name="ZOrder">35</P>
+    <P Name="HideAutomaticName">off</P>
+    <P Name="LibraryVersion">7.0</P>
+    <P Name="SourceBlock">nesl_utility/Solver
+Configuration</P>
+    <P Name="SourceType">Solver
+Configuration</P>
+    <InstanceData>
+      <P Name="RTWMemSecFuncInitTerm">Inherit from model</P>
+      <P Name="RTWMemSecFuncExecute">Inherit from model</P>
+      <P Name="RTWMemSecDataConstants">Inherit from model</P>
+      <P Name="RTWMemSecDataInternal">Inherit from model</P>
+      <P Name="RTWMemSecDataParameters">Inherit from model</P>
+      <P Name="ContentPreviewEnabled">off</P>
+      <P Name="PhysicalDomain">network_engine_domain</P>
+      <P Name="SubClassName">solver</P>
+      <P Name="LeftPortType">input</P>
+      <P Name="RightPortType">generic</P>
+      <P Name="Tones">[]</P>
+      <P Name="Harmonics">[]</P>
+      <P Name="SimulateNoise">off</P>
+      <P Name="Profile">off</P>
+      <P Name="UseLocalSampling">off</P>
+      <P Name="EnableSwitchedLinearOptims">on</P>
+      <P Name="FrequencyDomain">off</P>
+      <P Name="UseCCode">off</P>
+      <P Name="RelTol">0.001</P>
+      <P Name="AbsTol">1e-06</P>
+      <P Name="MinStep">1e-09</P>
+      <P Name="ToWorkspace">off</P>
+      <P Name="RevertToSquareIcSolve">off</P>
+      <P Name="NumHomotopyIterations">100</P>
+      <P Name="PhasorMode">off</P>
+      <P Name="PhasorModeNumHarmonics">1</P>
+      <P Name="ConsistencySolver">NEWTON_XTOL_AFTER_FTOL</P>
+      <P Name="IndexReductionMethod">DerivativeReplacement</P>
+      <P Name="DoDC">off</P>
+      <P Name="ResidualTolerance">1e-09</P>
+      <P Name="ConsistencyTolSource">GLOBAL</P>
+      <P Name="ConsistencyAbsTol">0.001</P>
+      <P Name="ConsistencyRelTol">0.001</P>
+      <P Name="ConsistencyTolFactor">0.001</P>
+      <P Name="UseLocalSolver">off</P>
+      <P Name="LocalSolverChoice">NE_BACKWARD_EULER_ADVANCER</P>
+      <P Name="ResolveIndetEquations">on</P>
+      <P Name="FunctionEvalNumThread">1</P>
+      <P Name="LocalSolverSampleTime">0.001</P>
+      <P Name="DoFixedCost">off</P>
+      <P Name="MaxNonlinIter">3</P>
+      <P Name="MaxModeIter">2</P>
+      <P Name="ComputeImpulses">off</P>
+      <P Name="ImpulseIterations">2</P>
+      <P Name="LinearAlgebra">Sparse</P>
+      <P Name="LinearAlgebraNumThread">0</P>
+      <P Name="EquationFormulation">NE_TIME_EF</P>
+      <P Name="DelaysMemoryBudget">1024</P>
+      <P Name="AutomaticFiltering">on</P>
+      <P Name="FilteringTimeConstant">0.001</P>
+      <P Name="PartitionStorageMethod">AS_NEEDED</P>
+      <P Name="PartitionMemoryBudget">1024</P>
+      <P Name="PartitionMethod">FAST</P>
+      <P Name="MultibodyUseLocalSolver">off</P>
+      <P Name="MultibodyLocalSolverChoice">ODE1</P>
+      <P Name="MultibodyLocalSolverSampleTime">0.001</P>
+    </InstanceData>
+  </Block>
+  <Block BlockType="Reference" Name="World Frame" SID="25">
+    <PortCounts rconn="1"/>
+    <P Name="Position">[20, 105, 60, 145]</P>
+    <P Name="ZOrder">36</P>
+    <P Name="HideAutomaticName">off</P>
+    <P Name="LibraryVersion">23.21</P>
+    <P Name="SourceBlock">sm_lib/Frames and
+Transforms/World Frame</P>
+    <P Name="SourceType">World Frame</P>
+    <InstanceData>
+      <P Name="LogSimulationData">off</P>
+    </InstanceData>
+  </Block>
+  <Block BlockType="Outport" Name="theta" SID="48">
+    <P Name="Position">[410, 218, 440, 232]</P>
+    <P Name="ZOrder">50</P>
+  </Block>
+  <Block BlockType="Outport" Name="thetadot" SID="49">
+    <P Name="Position">[410, 238, 440, 252]</P>
+    <P Name="ZOrder">51</P>
+    <P Name="Port">2</P>
+  </Block>
+  <Line LineType="Connection">
+    <P Name="ZOrder">14</P>
+    <P Name="Src">30#lconn:1</P>
+    <P Name="Points">[-55, 0; 0, -15]</P>
+    <P Name="Dst">33#rconn:1</P>
+  </Line>
+  <Line>
+    <P Name="ZOrder">27</P>
+    <P Name="Src">47#out:1</P>
+    <P Name="Points">[37, 0; 0, -55]</P>
+    <P Name="Dst">36#in:1</P>
+  </Line>
+  <Line LineType="Connection">
+    <P Name="ZOrder">17</P>
+    <P Name="Src">33#rconn:2</P>
+    <P Name="Points">[27, 0; 0, 50]</P>
+    <P Name="Dst">37#lconn:1</P>
+  </Line>
+  <Line LineType="Connection">
+    <P Name="ZOrder">18</P>
+    <P Name="Src">33#rconn:3</P>
+    <P Name="Points">[6, 0; 0, 105]</P>
+    <P Name="Dst">38#lconn:1</P>
+  </Line>
+  <Line>
+    <P Name="Name">theta</P>
+    <P Name="ZOrder">28</P>
+    <P Name="Labels">[2, 1]</P>
+    <P Name="Src">37#out:1</P>
+    <P Name="Points">[35, 0; 0, 50]</P>
+    <P Name="Dst">48#in:1</P>
+  </Line>
+  <Line>
+    <P Name="Name">thetadot</P>
+    <P Name="ZOrder">29</P>
+    <P Name="Labels">[1, 1]</P>
+    <P Name="Src">38#out:1</P>
+    <P Name="Dst">49#in:1</P>
+  </Line>
+  <Line LineType="Connection">
+    <P Name="ZOrder">16</P>
+    <P Name="Src">36#rconn:1</P>
+    <P Name="Points">[-4, 0; 0, -165]</P>
+    <P Name="Dst">33#lconn:2</P>
+  </Line>
+  <Line LineType="Connection">
+    <P Name="ZOrder">5</P>
+    <P Name="Src">25#rconn:1</P>
+    <P Name="Points">[10, 0]</P>
+    <Branch ConnectType="DEST_DEST">
+      <P Name="Points">[85, 115; 0, 10]</P>
+      <Branch ConnectType="SRC_DEST">
+        <P Name="Src">33#lconn:1</P>
+        <P Name="Points">[-100, 0]</P>
+      </Branch>
+      <Branch ConnectType="SRC_SRC">
+        <P Name="Points">[0, -75]</P>
+        <P Name="Dst">24#rconn:1</P>
+      </Branch>
+    </Branch>
+    <Branch ConnectType="DEST_DEST">
+      <P Name="Src">21#rconn:1</P>
+      <P Name="Points">[10, 0; 0, -80]</P>
+    </Branch>
+  </Line>
+</System>
