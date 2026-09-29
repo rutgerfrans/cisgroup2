@@ -30,6 +30,7 @@ m.J = m.m*m.l^2;
 Ts = 0.02; 
 
 %% 1.1
+u = 0;
 figure; hold on; grid on
 for th0 = [0 0.01 -0.01]
     [t,X] = ode45(@(t,x) pen_sys(t,x,p,g,u), [0 50], [th0; 0]);
@@ -41,14 +42,20 @@ xlabel('t [s]'); ylabel('\theta [deg]')
 %umin = ...
 %umax = ...
 
-%% Linear model
+%% Linear model (1.2)
 %%%%%% Here you should set the matrices Ac and Bc which correspond to
 %%%%%% the linearized system 
 
-%Ac = ...
-%Bc = ...
+Ac = [0 1; (m.m * g * m.l)/m.J -m.b/m.J];
+Bc = [0; 1/m.J];
 
-%% Discrete-time model
+eig(Ac) 
+% eigenvalues are 4.3306 and -4.5306
+% one has a positive real part, so the system is unstable
+% this is similar to the unstability of the pendulum when the initial theta
+% is -0.01 or 0.01
+
+%% Discrete-time model (1.3)
 %%%%% Disretize the linear apprroximation; you can use MATLAB functions
 %%%%% from control systtem toolbox such as c2d or compute matrix
 %%%%% exponentials
