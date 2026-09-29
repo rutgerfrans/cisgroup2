@@ -53,8 +53,12 @@ xlabel('t [s]'); ylabel('\theta [deg]')
 %%%%% from control systtem toolbox such as c2d or compute matrix
 %%%%% exponentials
 
-%Ad=...
-%Bd=...
+sys_c = ss(Ac, Bc, eye(2), zeros(2,1));
+
+sys_d = c2d(sys_c, Ts, 'zoh');
+
+Ad = sys_d.A;
+Bd = sys_d.B;
 
 %% LQR
 %%%%% Design LQR 
