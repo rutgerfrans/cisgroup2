@@ -39,8 +39,8 @@ end
 xlabel('t [s]'); ylabel('\theta [deg]')
 
 %% Actuator limits 
-%umin = ...
-%umax = ...
+umin = -5;
+umax = 5;
 
 %% Linear model (1.2)
 %%%%%% Here you should set the matrices Ac and Bc which correspond to
@@ -49,7 +49,9 @@ xlabel('t [s]'); ylabel('\theta [deg]')
 Ac = [0 1; (m.m * g * m.l)/m.J -m.b/m.J];
 Bc = [0; 1/m.J];
 
-eig(Ac) 
+eigenvalues_of_Ac = eig(Ac);
+disp("Eigenvalues of Ac:");
+disp(eigenvalues_of_Ac);
 % eigenvalues are 4.3306 and -4.5306
 % one has a positive real part, so the system is unstable
 % this is similar to the unstability of the pendulum when the initial theta
@@ -70,8 +72,10 @@ Bd = sys_d.B;
 %% LQR
 %%%%% Design LQR 
 
-%K=...
+Q = [1 0; 0 1];
+R = 0.1;
 
+[K, S, P] = dlqr(Ad, Bd, Q, R);
 
 %% Observer
 %%%% Design an observer using pole placement
@@ -86,7 +90,7 @@ C = [1 0];
 %%% contains the outputs from the simulation (for example, measured and
 %%% estimated values, control input, or any other thing you add)
 
-%out=sim("actuated_pendulum")
+out=sim("actuated_pendulum");
 
 %%%%%% 
 %%% Add relevant plots etc. 
