@@ -80,9 +80,11 @@ R = 1;
 %% Observer
 %%%% Design an observer using pole placement
 C = [1 0];
-%xhat0 = ... 
+xhat0 = [0; 0]; 
 
-%L = ...
+obs_poles = P.^2; % Will require experimentation
+
+L = place(Ad', C', obs_poles)';
 
 %% Simulate the actuated pendulum
 %%% The following command runs the simulation.
@@ -94,25 +96,46 @@ out=sim("actuated_pendulum");
 
 theta_sim = out.theta_sim;
 omega_sim = out.omega_sim;
+u_sim = out.u_sim;
+theta_hat = out.theta_hat;
+omega_hat = out.omega_hat;
 t = theta_sim.Time;
 
 figure;
 
-ax1 = subplot(2, 1, 1);
+ax1 = subplot(5, 1, 1);
 plot(t, theta_sim.Data)
 title("Simulated Theta");
 xlabel('t [s]'); ylabel('\theta [deg]')
 grid on
 
-ax2 = subplot(2, 1, 2);
+ax2 = subplot(5, 1, 2);
 plot(t, omega_sim.Data)
 title("Simulated Omega");
 xlabel('t [s]'); ylabel('\omega [deg/s]')
 grid on
 
+ax3 = subplot(5, 1, 3);
+plot(t, u_sim.Data)
+title("Simulated Input");
+xlabel('t [s]'); ylabel('\omega [deg/s]')
+grid on
+
+ax4 = subplot(5, 1, 4);
+plot(t, reshape(theta_hat.Data, 1, []))
+title("Simulated Theta Hat");
+xlabel('t [s]'); ylabel('\theta hat [deg]')
+grid on
+
+ax5 = subplot(5, 1, 5);
+plot(t, reshape(omega_hat.Data, 1, []))
+title("Simulated Omega_hat");
+xlabel('t [s]'); ylabel('\omega hat [deg/s]')
+grid on
+
 sgtitle("Simulation outputs with noise at theta0=" + string(p.theta0) + " omega0=" + ...
     string(p.omega0) + " umin=" + string(umin) + " umax=" + string(umax) + ...
-    newline + "Q=" + string(mat2str(Q,3)) + " R=" + string(R) + " length=2m")
+    newline + "Q=" + string(mat2str(Q,3)) + " R=" + string(R))
 
 %% First order equation
 function xdot = pen_sys(t, x, p, g, u)
@@ -124,5 +147,3 @@ theta_ddot = (p.m * g * p.l * sin(theta) - p.b * omega + u) / J;
 
 xdot = [omega;theta_ddot];
 end
-
-
