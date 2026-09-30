@@ -39,8 +39,8 @@ end
 xlabel('t [s]'); ylabel('\theta [deg]')
 
 %% Actuator limits 
-umin = -5;
-umax = 5;
+umin = -2;
+umax = 2;
 
 %% Linear model (1.2)
 %%%%%% Here you should set the matrices Ac and Bc which correspond to
@@ -73,7 +73,7 @@ Bd = sys_d.B;
 %%%%% Design LQR 
 
 Q = [1 0; 0 1];
-R = 0.1;
+R = 1;
 
 [K, S, P] = dlqr(Ad, Bd, Q, R);
 
@@ -92,8 +92,27 @@ C = [1 0];
 
 out=sim("actuated_pendulum");
 
-%%%%%% 
-%%% Add relevant plots etc. 
+theta_sim = out.theta_sim;
+omega_sim = out.omega_sim;
+t = theta_sim.Time;
+
+figure;
+
+ax1 = subplot(2, 1, 1);
+plot(t, theta_sim.Data)
+title("Simulated Theta");
+xlabel('t [s]'); ylabel('\theta [deg]')
+grid on
+
+ax2 = subplot(2, 1, 2);
+plot(t, omega_sim.Data)
+title("Simulated Omega");
+xlabel('t [s]'); ylabel('\omega [deg/s]')
+grid on
+
+sgtitle("Simulation outputs with noise at theta0=" + string(p.theta0) + " omega0=" + ...
+    string(p.omega0) + " umin=" + string(umin) + " umax=" + string(umax) + ...
+    newline + "Q=" + string(mat2str(Q,3)) + " R=" + string(R) + " length=2m")
 
 %% First order equation
 function xdot = pen_sys(t, x, p, g, u)
