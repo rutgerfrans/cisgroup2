@@ -7,7 +7,7 @@ p.l = 0.5;        % m, distance pivot -> point mass
 p.b = 0.05;       % N*m/(rad/s)
 g = 9.81;       % m/s^2
 
-p.theta0 = 35;  %degrees
+p.theta0 = 5;   %degrees
 p.omega0 = 0;   %rad/s
 
 %% Model parameters 
@@ -17,7 +17,7 @@ p.omega0 = 0;   %rad/s
 %%%%%%% uncertainty
 
 m.m = p.m;        % kg
-m.l = p.l;        % m, distance pivot -> point mass
+m.l = p.l/2;      % m, pivot -> point mass in supplied Simscape model
 m.b = p.b;       % N*m/(rad/s)
 m.J = m.m*m.l^2;
 
@@ -52,7 +52,6 @@ Bc = [0; 1/m.J];
 eigenvalues_of_Ac = eig(Ac);
 disp("Eigenvalues of Ac:");
 disp(eigenvalues_of_Ac);
-% eigenvalues are 4.3306 and -4.5306
 % one has a positive real part, so the system is unstable
 % this is similar to the unstability of the pendulum when the initial theta
 % is -0.01 or 0.01
@@ -106,36 +105,68 @@ figure;
 ax1 = subplot(5, 1, 1);
 plot(t, theta_sim.Data)
 title("Simulated Theta");
-xlabel('t [s]'); ylabel('\theta [deg]')
+xlabel('t [s]'); ylabel('\theta [rad]')
 grid on
 
 ax2 = subplot(5, 1, 2);
 plot(t, omega_sim.Data)
 title("Simulated Omega");
-xlabel('t [s]'); ylabel('\omega [deg/s]')
+xlabel('t [s]'); ylabel('\omega [rad/s]')
 grid on
 
 ax3 = subplot(5, 1, 3);
 plot(t, u_sim.Data)
 title("Simulated Input");
-xlabel('t [s]'); ylabel('\omega [deg/s]')
+xlabel('t [s]'); ylabel('u [N m]')
 grid on
 
 ax4 = subplot(5, 1, 4);
 plot(t, reshape(theta_hat.Data, 1, []))
 title("Simulated Theta Hat");
-xlabel('t [s]'); ylabel('\theta hat [deg]')
+xlabel('t [s]'); ylabel('\theta hat [rad]')
 grid on
 
 ax5 = subplot(5, 1, 5);
 plot(t, reshape(omega_hat.Data, 1, []))
 title("Simulated Omega_hat");
-xlabel('t [s]'); ylabel('\omega hat [deg/s]')
+xlabel('t [s]'); ylabel('\omega hat [rad/s]')
 grid on
 
 sgtitle("Simulation outputs with noise at theta0=" + string(p.theta0) + " omega0=" + ...
     string(p.omega0) + " umin=" + string(umin) + " umax=" + string(umax) + ...
     newline + "Q=" + string(mat2str(Q,3)) + " R=" + string(R))
+
+%% Observer experiment plots
+
+theta_actual = theta_sim.Data;
+omega_actual = omega_sim.Data;
+
+theta_est = reshape(theta_hat.Data, [], 1);
+omega_est = reshape(omega_hat.Data, [], 1);
+
+figure;
+
+subplot(2,1,1)
+plot(t, theta_actual, 'LineWidth', 1.5)
+hold on
+plot(t, theta_est, '--', 'LineWidth', 1.5)
+grid on
+legend('Actual angle', 'Estimated angle')
+xlabel('Time [s]')
+ylabel('\theta')
+title('Actual vs estimated angle')
+
+subplot(2,1,2)
+plot(t, omega_actual, 'LineWidth', 1.5)
+hold on
+plot(t, omega_est, '--', 'LineWidth', 1.5)
+grid on
+legend('Actual velocity', 'Estimated velocity')
+xlabel('Time [s]')
+ylabel('\omega')
+title('Actual vs estimated angular velocity')
+
+sgtitle("Observer poles = " + mat2str(obs_poles,3))
 
 %% First order equation
 function xdot = pen_sys(t, x, p, g, u)
