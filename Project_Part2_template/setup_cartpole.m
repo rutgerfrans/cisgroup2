@@ -65,12 +65,6 @@ sys_disc = c2d(sys_cont, Ts, 'zoh');
 Ad = sys_disc.A;
 Bd = sys_disc.B;
 
-% ---- 2.1.1 confirmation ---- %
-% these should equal
-% sort(eig(Ad))
-% sort(exp(eig(A)*Ts))
-
-
 %%% Compute the discrete LQR gain, select and justify weight matrices
 
 % LQR weights: Bryson's rule weight=1/(maximum acceptable deviation^2)
@@ -101,6 +95,79 @@ Knom = 0;
 Unom = 0;
 Xnom = 0;
 
+%% Empirical Capture Zone - angle vs. angular velocity (Task 2.2.1)
+
+thetas = deg2rad(-90:1:90); % list of all theta values spaced by 1 degree
+omegas = -10:0.25:10; % list of all omega values spaced by 0.25
+Tsim = 10; % run each sim 10 seconds
+
+captured_map = false(length(omegas), length(thetas)); % initialize all theta-omega pairings as false
+for i = 1 : length(omegas) 
+    for j = 1 : length(thetas) % nested loop through both values
+        x0_test = [0; 0; thetas(j); omegas(i)]; % initialize test conditions x0
+        captured_map(i, j) = test_capture(x0_test, K_lqr, model, Ts, Fmax, xmax, Tsim); % run capture zone experiment
+    end
+end
+
+% visualize capture zone
+figure; imagesc(rad2deg(thetas), omegas, captured_map)
+set(gca,'YDir','normal'); colormap([1 0.6 0.6; 0.6 0.9 0.6])
+xlabel('\theta_0 [deg]'); ylabel('\omega_0 [rad/s]')
+title('Capture Zone: green = stabilized, red = unstable, p_0 = v_0 = 0')
+
+%% Empirical Capture Zone - angle vs. cart position (Task 2.2.2)
+p_list  = -xmax:0.05:xmax; % list of all cart velocities spaced by 0.05
+
+captured_p = false(length(p_list), length(thetas));
+for i = 1:length(p_list)
+    for j = 1:length(thetas)
+        x0_test = [p_list(i); 0; thetas(j); 0];
+        captured_p(i,j) = test_capture(x0_test, K_lqr, model, Ts, Fmax, xmax, Tsim);
+    end
+end
+
+figure; imagesc(rad2deg(thetas), p_list, double(captured_p))
+set(gca,'YDir','normal'); colormap([1 0.6 0.6; 0.6 0.9 0.6])
+xlabel('\theta_0 [deg]'); ylabel('p_0 [m]')
+title('Capture zone (green = stabilized), v_0 = \omega_0 = 0')
+
+%% Empirical Capture Zone - angle vs. cart velocity (Task 2.2.3)
+v_list = -4:0.25:4; % list of all cart velocities spaced by 0.25
+
+captured_v = false(length(v_list), length(thetas));
+for i = 1:length(v_list)
+    for j = 1:length(thetas)
+        x0_test = [0; v_list(i); thetas(j); 0];
+        captured_v(i,j) = test_capture(x0_test, K_lqr, model, Ts, Fmax, xmax, Tsim);
+    end
+end
+
+figure; imagesc(rad2deg(thetas), v_list, double(captured_v))
+set(gca,'YDir','normal'); colormap([1 0.6 0.6; 0.6 0.9 0.6])
+xlabel('\theta_0 [deg]'); ylabel('v_0 [m/s]')
+title('Capture zone (green = stabilized), p_0 = \omega_0 = 0')
+
+%% Capture Criterion (Taks 2.2.4)
+% manually read off limits from earlier capture zone plots to determine
+% rough limits --> later toyed with to arrive at these capture zone limits
+cap.p = 0.11;
+cap.v = 0.3;
+cap.theta = deg2rad(10);
+cap.omega = 1.11;
+capture_limits = [cap.p; cap.v; cap.theta; cap.omega]; % limit box
+
+% test every combination at values -limit, 0, +limit (middle + extreme points)
+[a,b,c,d] = ndgrid([-1 0 1]);
+S = [a(:) b(:) c(:) d(:)]';
+
+corner_check = false(1, size(S,2)); % initially false matrix for all combinations
+for k = 1 : size(S, 2) % loop through all possible values
+    x0_test = S(:,k) .* capture_limits; % apply box limits for this iteration
+    corner_check(k) = test_capture(x0_test, K_lqr, model, Ts, Fmax, xmax, Tsim); % test capture, store in corner_check
+end
+fprintf('Captured: %d of %d\n', sum(corner_check), numel(corner_check)); % % of combinations succeeded
+
+disp(S(:, ~corner_check)') % print failed combinations, used for manual tweaking of limits
 
 %% iLQR setup
 % T = ...           % Swing-up horizon [s]
