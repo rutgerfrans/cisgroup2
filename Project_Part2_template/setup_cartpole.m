@@ -11,7 +11,7 @@ g=9.81;
 %%%%% Vary the initial state %%%%%%
 param.p0     = 0;
 param.v0     = 0;
-param.theta0 = 10; % Simscape joint target is in degrees (0 upright, 180 down)
+param.theta0 = 150; % Simscape joint target is in degrees (0 upright, 180 down)
 param.omega0 = 0;
 
 x0 = [param.p0; param.v0;
@@ -27,7 +27,7 @@ model.g   = g;
 
 %%%%% You can vary these parameters %%%%%%
 Ts   = 0.01;               % Sample time for discrete-time dynamics [s]
-Fmax = 20;                 % Force saturation [N]
+Fmax = 40;                 % Force saturation [N]
 xmax = 0.5;                % Cart-travel limit [m] (can be arbitrarily large)
 
 %% Continuous-time linearization at upright
@@ -170,17 +170,17 @@ fprintf('Captured: %d of %d\n', sum(corner_check), numel(corner_check)); % % of 
 disp(S(:, ~corner_check)') % print failed combinations, used for manual tweaking of limits
 
 %% iLQR setup
-T = 1;           % Swing-up horizon [s]
+T = 8;           % Swing-up horizon [s]
 N = round(T/Ts);
 T = N*Ts;
 
 % Initial guess
-U0 = -1 * ones(1,N);
+U0 = 50 * ones(1,N);
 
 % Swing-up weight matrices
-Q  = [2, 1, 1, 1] .* eye(4);
-R  = 0.01;
-Qf = 5 * eye(4);
+Q  = [0.4, 0.2, 10, 1] .* eye(4);
+R  = 0.001;
+Qf = 100000 * [4, 0.2, 10, 4] .* eye(4);
 
 %% Optimize swing-up
 %%% Implement ilqr function %%%
