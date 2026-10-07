@@ -170,17 +170,17 @@ fprintf('Captured: %d of %d\n', sum(corner_check), numel(corner_check)); % % of 
 disp(S(:, ~corner_check)') % print failed combinations, used for manual tweaking of limits
 
 %% iLQR setup
-% T = ...           % Swing-up horizon [s]
-% N = round(T/Ts);
-% T = N*Ts;
+T = 1;           % Swing-up horizon [s]
+N = round(T/Ts);
+T = N*Ts;
 
 % Initial guess
-% U0 = ...
+U0 = -1 * ones(1,N);
 
 % Swing-up weight matrices
-% Q  = ...
-% R  = ...
-% Qf = ...
+Q  = [2, 1, 1, 1] .* eye(4);
+R  = 0.01;
+Qf = 5 * eye(4);
 
 %% Optimize swing-up
 %%% Implement ilqr function %%%

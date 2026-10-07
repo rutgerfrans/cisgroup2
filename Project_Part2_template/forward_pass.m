@@ -15,5 +15,10 @@ Xnew(:,1) = x0;
 
 %%%% Implement forward pass here %%%
 
+for k = 1:N
+    Unew(:, k) = U(:, k) + alpha*d(:, k) - K(:, :, k)*(Xnew(:,k) - X(:, k));
+    Unew(:, k) = max(-Fmax,min(Fmax, Unew(:, k)));
+    Xnew(:, k+1) = discrete_step(Xnew(:, k), Unew(:, k), model, Ts);
+end
 
 end
