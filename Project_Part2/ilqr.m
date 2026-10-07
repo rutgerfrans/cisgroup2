@@ -46,7 +46,8 @@ for iter = 1:max_iter
     U = Unew;
 
     if cost_diff < rel_threshold * Jnew
-        % a tiny accepted step means we are stuck (often saturated force)
+        % a tiny accepted step means we are stuck (the backwards pass
+        % barely contributes to the upgrade)
         if alpha >= 1/16
             status = 'converged';
         else
