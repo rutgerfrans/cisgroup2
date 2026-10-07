@@ -11,7 +11,7 @@ g=9.81;
 %%%%% Vary the initial state %%%%%%
 param.p0     = 0;
 param.v0     = 0;
-param.theta0 = 150; % Simscape joint target is in degrees (0 upright, 180 down)
+param.theta0 = 180; % Simscape joint target is in degrees (0 upright, 180 down)
 param.omega0 = 0;
 
 x0 = [param.p0; param.v0;
@@ -170,21 +170,23 @@ fprintf('Captured: %d of %d\n', sum(corner_check), numel(corner_check)); % % of 
 disp(S(:, ~corner_check)') % print failed combinations, used for manual tweaking of limits
 
 %% iLQR setup
-T = 8;           % Swing-up horizon [s]
+% settings chosen from the experiments (run_experiments_part2.m)
+T = 3;           % Swing-up horizon [s]
 N = round(T/Ts);
 T = N*Ts;
 
 % Initial guess
-U0 = 50 * ones(1,N);
+U0 = zeros(1,N);
 
 % Swing-up weight matrices
-Q  = [0.4, 0.2, 10, 1] .* eye(4);
-R  = 0.001;
-Qf = 100000 * [4, 0.2, 10, 4] .* eye(4);
+Q  = diag([5, 0.1, 1, 0.1]);
+R  = 0.01;
+Qf = diag([1e4, 1e3, 1e4, 1e3]);
 
 %% Optimize swing-up
 %%% Implement ilqr function %%%
-[Xnom,Unom,Knom,costHistory] = ilqr(x0,U0,model,Ts,Q,R,Qf,Fmax);
+[Xnom,Unom,Knom,costHistory,status] = ilqr(x0,U0,model,Ts,Q,R,Qf,Fmax);
+fprintf('iLQR: %s after %d iterations, J = %.4g\n', status, numel(costHistory)-1, costHistory(end));
 
 %% Check nominal trajectory
 
@@ -192,12 +194,31 @@ Qf = 100000 * [4, 0.2, 10, 4] .* eye(4);
 %%% that the terminal state is in the capture zone, the cart displacement
 %%% is within limits, the force is bounded (it should be)
 
+xN = Xnom(:,end);
+xN(3) = atan2(sin(xN(3)), cos(xN(3))); % wrap angle to [-pi, pi]
+fprintf('final state: p = %.3f, v = %.3f, theta = %.1f deg, omega = %.3f\n', xN(1), xN(2), rad2deg(xN(3)), xN(4));
+fprintf('in capture zone: %d\n', all(abs(xN) <= capture_limits));
+fprintf('cart within limit: %d (max |p| = %.2f m)\n', max(abs(Xnom(1,:))) <= xmax, max(abs(Xnom(1,:))));
+fprintf('force within limit: %d (max |u| = %.1f N)\n', max(abs(Unom)) <= Fmax, max(abs(Unom)));
+
 
 %% Plot results
 
 %%%% You can plot the nominal state and control trajectories. These can be
 %%%% informative for changing iLQR parameters for finding a feasible
 %%%% trajectory.
+
+%% Task 5.1: supervisor and push on the cart
+% LQR for the hanging down position, used to let the pole come to rest
+% before swinging up again after a fall
+[Ad_down, Bd_down] = linearize_trajectory([0; 0; pi; 0], 0, model, Ts);
+Kdown = dlqr(Ad_down, Bd_down, diag([10 1 10 1]), 0.01);
+cap = capture_limits;
+
+% push on the cart, set dF_amp = 60 to knock the pole over
+dF_amp = 0;   % [N]
+dF_t0 = 6;    % [s]
+dF_dur = 0.1; % [s]
 
 %% Simulation 
 out=sim("cartpole");

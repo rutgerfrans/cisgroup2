@@ -1,0 +1,51 @@
+Experiment,Setting,Accepted,Reason,Iterations,Status,Cost,p_end,v_end,theta_end_deg,omega_end,CartTravel_m,SimscapeBalanced
+E1a_max_force,Fmax = 10 N,no,"p_N outside capture (-0.43), v_N outside capture (-0.84), theta_N outside capture (123.76), omega_N outside capture (-3.02)",12,converged,30918,-0.43,-0.836,124,-3.022,0.43,no
+E1a_max_force,Fmax = 20 N,no,"p_N outside capture (-0.24), theta_N outside capture (69.90)",5,stalled,9651,-0.24,0.15,69.9,-0.631,0.34,no
+E1a_max_force,Fmax = 25 N,no,"p_N outside capture (-0.18), v_N outside capture (0.36), theta_N outside capture (44.12), omega_N outside capture (-1.20)",6,stalled,5687,-0.181,0.356,44.2,-1.204,0.4,no
+E1a_max_force,Fmax = 30 N,no,"p_N outside capture (-0.18), theta_N outside capture (17.76), omega_N outside capture (-1.26)",4,line search failed,3265,-0.178,0.207,17.7,-1.263,0.29,no
+E1a_max_force,Fmax = 35 N,yes,,6,line search failed,2350,-0.084,0.16,9.4,-0.855,0.26,yes
+E1a_max_force,Fmax = 40 N,yes,,63,converged,1393,0.005,-0.03,-0.2,0.009,0.38,yes
+E1a_max_force,Fmax = 60 N,yes,,94,converged,1242,0.002,-0.015,-0.2,0.005,0.35,yes
+E1a_max_force,Fmax = 80 N,no,cart travel 0.55 m,300,max iterations,483,-0,0.001,0,-0,0.55,yes
+E1b_cart_displacement,q_p = 0,no,cart travel 0.76 m,6,stalled,1894,-0.017,0.152,0.7,-0.198,0.76,yes
+E1b_cart_displacement,q_p = 1,yes,,220,converged,805,0,-0.003,-0,0.001,0.37,yes
+E1b_cart_displacement,q_p = 5,yes,,63,converged,1393,0.005,-0.03,-0.2,0.009,0.38,yes
+E1b_cart_displacement,q_p = 20,yes,,300,max iterations,672,0,0,0,-0,0.28,yes
+E1b_cart_displacement,q_p = 100,yes,,63,converged,1567,0.001,-0.027,-0.1,0.007,0.21,yes
+E2_weights,baseline,yes,,63,converged,1393,0.005,-0.03,-0.2,0.009,0.38,yes
+E2_weights,R = 0.001,no,"p_N outside capture (0.43), theta_N outside capture (44.69), omega_N outside capture (-2.65)",6,line search failed,8961,0.428,0.02,44.7,-2.649,0.43,no
+E2_weights,R = 0.1,yes,,55,converged,2224,-0.003,0.054,1.8,-0.036,0.26,yes
+E2_weights,R = 1,no,"v_N outside capture (0.31), theta_N outside capture (17.76)",50,converged,7661,-0.012,0.306,17.6,-0.273,0.27,no
+E2_weights,Qf x 0.01,no,"p_N outside capture (0.24), theta_N outside capture (25.21)",31,converged,1569,0.239,0.021,25.5,-0.096,0.32,no
+E2_weights,Qf x 0.1,yes,,300,max iterations,537,-0.001,0.004,0,-0.001,0.31,yes
+E2_weights,Qf x 100,no,"p_N outside capture (-0.17), v_N outside capture (0.88), omega_N outside capture (-4.07)",3,line search failed,882474,-0.165,0.883,2.3,-4.067,0.37,no
+E2_weights,Q = 0,no,cart travel 0.56 m,53,converged,57,-0.001,-0,0.2,-0.003,0.56,yes
+E2_weights,Q theta heavy,no,"p_N outside capture (-0.21), v_N outside capture (3.20), theta_N outside capture (85.94), omega_N outside capture (-1.78), cart travel 1.13 m",2,line search failed,89110,-0.215,3.204,86.2,-1.777,1.13,no
+E2_weights,old team weights,no,"p_N outside capture (-0.29), v_N outside capture (2.68), theta_N outside capture (84.80), cart travel 1.13 m",2,line search failed,1206484,-0.289,2.683,85.1,0.044,1.13,no
+E3_horizon,T = 1 s,yes,,37,converged,551,0.017,-0.057,-0.3,0.014,0.25,yes
+E3_horizon,T = 1.5 s,no,cart travel 0.51 m,141,converged,492,0.003,-0.026,-0.3,0.009,0.51,yes
+E3_horizon,T = 2 s,no,cart travel 0.53 m,207,converged,487,-0.001,-0,-0,0,0.53,yes
+E3_horizon,T = 2.5 s,yes,,25,converged,1285,0.009,-0.02,0.1,0.002,0.36,yes
+E3_horizon,T = 3 s,yes,,63,converged,1393,0.005,-0.03,-0.2,0.009,0.38,yes
+E3_horizon,T = 4 s,yes,,149,converged,1574,-0,-0.003,-0,0.001,0.32,yes
+E3_horizon,T = 6 s,yes,,149,converged,2561,-0,-0.003,-0,0.001,0.32,yes
+E3_horizon,T = 8 s,yes,,149,converged,3548,-0,-0.003,-0,0.001,0.32,yes
+E4_initial_guess,zeros,yes,,63,converged,1393,0.005,-0.03,-0.2,0.009,0.38,yes
+E4_initial_guess,sine 10N 1Hz,yes,,116,converged,1052,-0,-0.002,-0,0.001,0.32,yes
+E4_initial_guess,sine 30N 1Hz,no,cart travel 0.53 m,97,converged,1175,-0.003,-0.016,-0.6,0.01,0.53,yes
+E4_initial_guess,constant 40N,yes,,87,converged,1290,0.002,-0.02,-0.2,0.006,0.35,yes
+E4_initial_guess,random 10N,yes,,139,converged,1117,-0,-0.005,-0.1,0.002,0.32,yes
+E4_initial_guess,"zeros, theta0 = 150",yes,,137,converged,1132,0,-0.005,-0.1,0.002,0.32,yes
+E5_failure_handling,fail: Qf x 0.01,no,"p_N outside capture (0.24), theta_N outside capture (25.21)",31,converged,1569,0.239,0.021,25.5,-0.096,0.32,no
+E5_failure_handling,fix: Qf x 0.1,yes,,300,max iterations,537,-0.001,0.004,0,-0.001,0.31,yes
+E5_failure_handling,fail: T = 1.5,no,cart travel 0.51 m,141,converged,492,0.003,-0.026,-0.3,0.009,0.51,yes
+E5_failure_handling,"fix: T = 1.5, q_p = 20",yes,,139,converged,545,-0,-0.008,-0.1,0.003,0.28,yes
+E5_failure_handling,fail: Qf x 100,no,"p_N outside capture (-0.17), v_N outside capture (0.88), omega_N outside capture (-4.07)",3,line search failed,882474,-0.165,0.883,2.3,-4.067,0.37,no
+E5_failure_handling,"try: Qf x 100, omega weight 1e3",yes,,11,converged,1801,-0,-0.016,-0.4,-0.216,0.19,yes
+E5_failure_handling,fix: omega weight 10,yes,,254,converged,721,-0,0.001,0,-0.029,0.3,yes
+E5_failure_handling,fail: R = 0.001,no,"p_N outside capture (0.43), theta_N outside capture (44.69), omega_N outside capture (-2.65)",6,line search failed,8961,0.428,0.02,44.7,-2.649,0.43,no
+E5_low_force,Fmax = 20,no,"p_N outside capture (-0.24), theta_N outside capture (69.90)",5,stalled,9651,-0.24,0.15,69.9,-0.631,0.34,no
+E5_low_force,"Fmax = 20, T = 8",no,"p_N outside capture (-0.24), theta_N outside capture (69.90)",5,stalled,12118,-0.24,0.15,69.9,-0.631,0.34,no
+E5_low_force,"Fmax = 20, sine guess",no,"p_N outside capture (-0.28), v_N outside capture (-2.67), theta_N outside capture (131.21), omega_N outside capture (8.13)",2,line search failed,65066,-0.28,-2.672,131.3,8.131,0.3,no
+E5_low_force,"Fmax = 20, R = 1",no,theta_N outside capture (28.07),23,converged,8258,-0.022,0.276,28,-0.358,0.3,no
+E5_low_force,"Fmax = 20, R = 10",no,"v_N outside capture (0.36), theta_N outside capture (115.74)",12,converged,32790,-0.014,0.363,115.6,-0.033,0.23,no
